@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SOHA — Candidate for President</title>
+<meta name="description" content="SOHA for President, SSC Elections 2026–2027. Fast mobile-first campaign landing page with anonymous feedback.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f3ee;
+    --bg-2:#efe2da;
+    --paper:#111111;
+    --muted:rgba(17,17,17,.68);
+    --line:rgba(17,17,17,.12);
+    --accent:#b12c2c;
+    --accent-2:#d04b4b;
+    --success:#8bf0b5;
+    --card:rgba(177,44,44,.065);
+    --shadow:0 18px 40px rgba(89,24,24,.16);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html,body{min-height:100%;background:var(--bg);color:var(--paper);-webkit-tap-highlight-color:transparent}
+  body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden}
+
+  .grain{
+    position:fixed;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;z-index:20;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size:180px 180px;
+  }
+
+  .app{
+    min-height:100dvh;
+    padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+    position:relative;
+  }
+
+  .hero{
+    position:relative;
+    padding:10px 12px 10px;
+    border-bottom:1px solid rgba(17,17,17,.08);
+    background:
+      radial-gradient(1200px 420px at 50% 0%, rgba(177,44,44,.14), transparent 45%),
+      linear-gradient(180deg, rgba(255,255,255,.5), transparent 22%),
+      linear-gradient(180deg, #f7f3ee 0%, #efe7e1 100%);
+  }
+
+  .status{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;color:rgba(17,17,17,.58);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase
+  }
+  .status b{color:var(--paper)}
+  .topnav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin:0 0 4px;
+    padding:0 0 2px;
+  }
+  .topnav-logo{
+    width:74px;
+    height:54px;
+    object-fit:contain;
+    display:block;
+    image-rendering:auto;
+    mix-blend-mode:multiply;
+  }
+
+  .topnav-logo:first-child{
+    width:106px;
+    height:42px;
+  }
+
+  .topnav-logo:last-child{
+    width:78px;
+    height:42px;
+  }
+
+  .logo-svg{
+    width:62px;
+    height:62px;
+    display:block;
+    flex:0 0 auto;
+  }
+
+  .hook-panel{
+    min-height:108px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    text-align:center;
+    gap:4px;
+    padding:2px 4px 0;
+  }
+
+  .hook-line,
+  .hear-line{
+    font-family:"Bricolage Grotesque",Inter,sans-serif;
+    font-weight:800;
+    letter-spacing:-.03em;
+    line-height:1;
+    font-size:clamp(1.45rem, 6.8vw, 2.35rem);
+    text-wrap:balance;
+  }
+  .hook-line{opacity:0;transform:translateY(10px);transition:opacity .22s ease, transform .22s ease}
+  .hook-line.is-visible{opacity:1;transform:translateY(0)}
+  .hook-line.is-hidden{opacity:0;transform:translateY(-8px)}
+  .hear-line{opacity:0;transform:translateY(8px);color:var(--accent-2);position:static;inset:auto;}
+  .hear-line.is-visible{opacity:1;transform:translateY(0);transition:opacity .24s ease, transform .24s ease}
+
+  .campaign{
+    padding:10px 14px 18px;
+    position:relative;
+    overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(177,44,44,.08), transparent 42%),
+      linear-gradient(180deg, #f7f3ee 0%, #f2ebe5 100%);
+  }
+
+  .poster-frame{
+    width:min(92vw,450px);
+    margin:0 auto;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    background:rgba(255,255,255,.02);
+    border:1px solid rgba(255,255,255,.06);
+  }
+  .poster-image{
+    display:block;
+    width:100%;
+    height:auto;
+    object-fit:contain;
+    aspect-ratio:auto;
+    background:#111;
+    image-rendering:auto;
+  }
+
+  .poster-svg{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  .poster-fallback{
+    display:none;
+    padding:32px 18px;
+    text-align:center;
+    background:linear-gradient(180deg, #fbf7f1 0%, #efe2da 100%);
+    color:#111;
+  }
+  .poster-fallback .f-soha{font-family:"Bricolage Grotesque",Inter,sans-serif;font-weight:800;font-size:4rem;line-height:.84;letter-spacing:-.08em;color:#b12c2c}
+  .poster-fallback .f-sub{margin-top:10px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+  .poster-fallback .f-copy{margin-top:16px;font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:1.5rem;font-weight:800;line-height:.95;text-transform:uppercase}
+
+  .hero-copy{
+    padding:10px 2px 4px;
+    text-align:center;
+    max-width:460px;
+    margin:0 auto;
+  }
+  .slogan{
+    font-family:"Bricolage Grotesque",Inter,sans-serif;
+    font-weight:800;
+    line-height:1.04;
+    letter-spacing:-.04em;
+    font-size:clamp(1.42rem, 5.8vw, 2.05rem);
+  }
+  .supporting{
+    margin:8px auto 0;
+    color:var(--muted);
+    font-size:clamp(.9rem,3.6vw,1rem);
+    line-height:1.4;
+    max-width:31ch;
+  }
+  .cta{
+    display:block;width:100%;margin:18px auto 0;padding:1rem 1.1rem;border:0;border-radius:14px;
+    background:linear-gradient(90deg, #b12c2c, #d04b4b 58%, #ec6a6a);
+    color:#fff;font-family:"Bricolage Grotesque",Inter,sans-serif;font-weight:800;font-size:clamp(1.02rem,4.5vw,1.18rem);
+    letter-spacing:.02em;text-align:center;text-decoration:none;box-shadow:0 10px 28px rgba(177,44,44,.22)
+  }
+  .cta:active{transform:translateY(1px) scale(.99)}
+
+  .vote-line{
+    margin-top:10px;
+    font-family:"Bricolage Grotesque",Inter,sans-serif;
+    font-weight:800;
+    font-size:clamp(1.02rem,4.4vw,1.18rem);
+    line-height:1.08;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+
+  .feedback{
+    padding:12px 16px 24px;
+    background:
+      linear-gradient(180deg, rgba(177,44,44,.03), transparent 24%),
+      linear-gradient(180deg, #f7f3ee 0%, #f4eee8 100%);
+  }
+
+  .section-kicker{
+    font-family:"Bricolage Grotesque",Inter,sans-serif;
+    font-weight:800;
+    font-size:clamp(1.35rem,5.6vw,1.75rem);
+    letter-spacing:-.03em;
+    line-height:1.02;
+  }
+  .section-copy{margin-top:8px;color:var(--muted);font-size:.96rem;line-height:1.45;max-width:36ch}
+
+  .chip-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .chip{
+    appearance:none;border:1px solid rgba(177,44,44,.12);background:var(--card);color:var(--paper);
+    border-radius:999px;padding:.78rem .88rem;min-height:48px;font-size:.93rem;line-height:1.12;font-weight:600;
+    display:inline-flex;align-items:center;gap:.45rem;cursor:pointer;user-select:none;transition:transform .14s ease, background .14s ease, border-color .14s ease, color .14s ease;
+  }
+  .chip:active{transform:scale(.98)}
+  .chip.is-active{background:rgba(177,44,44,.18);border-color:rgba(208,75,75,.5);color:#fff}
+  .chip .emoji{font-size:1.02rem}
+
+  .more-toggle{
+    width:100%;margin-top:12px;padding:0;background:none;border:0;color:var(--accent-2);text-align:left;
+    font-weight:700;font-size:.92rem;display:flex;align-items:center;gap:8px
+  }
+  .more-panel{display:none;margin-top:12px}
+  .more-panel.is-open{display:block}
+
+  .form-group{margin-top:14px}
+  .label{display:block;font-size:.86rem;font-weight:700;color:rgba(17,17,17,.84);margin-bottom:8px;letter-spacing:.01em}
+  .input, .textarea{
+    width:100%;border:1px solid rgba(177,44,44,.12);background:rgba(255,255,255,.72);color:var(--paper);border-radius:16px;
+    padding:1rem 1rem;font:inherit;outline:none;transition:border-color .14s ease, background .14s ease, transform .14s ease;
+  }
+  .textarea{min-height:104px;resize:vertical;line-height:1.45}
+  .input:focus,.textarea:focus{border-color:rgba(208,75,75,.55);background:rgba(255,255,255,.055)}
+  .input::placeholder,.textarea::placeholder{color:rgba(17,17,17,.42)}
+
+  .meta-line{margin-top:10px;font-size:.8rem;color:rgba(245,241,234,.5);line-height:1.4}
+
+  .submit{
+    width:100%;margin-top:16px;padding:1rem 1.1rem;border:0;border-radius:16px;background:var(--paper);color:#fff;
+    font-family:"Bricolage Grotesque",Inter,sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:.02em;box-shadow:var(--shadow)
+  }
+  .submit:active{transform:translateY(1px) scale(.99)}
+
+  .confirm{
+    display:none;min-height:52vh;align-items:center;justify-content:center;text-align:center;padding:28px 18px 34px
+  }
+  .confirm.is-visible{display:flex}
+  .confirm-card{max-width:360px}
+  .confirm-title{font-family:"Bricolage Grotesque",Inter,sans-serif;font-weight:800;font-size:clamp(2.4rem,11vw,3.6rem);letter-spacing:-.04em;color:var(--success)}
+  .confirm-copy{margin-top:8px;color:var(--muted);font-size:1rem;line-height:1.45}
+  .confirm-end{margin-top:18px;font-family:"Bricolage Grotesque",Inter,sans-serif;font-weight:800;font-size:clamp(1.2rem,5vw,1.7rem);line-height:1.03}
+
+  .dashboard{
+    display:none;padding:18px 18px 28px;background:linear-gradient(180deg, #f7f3ee 0%, #efe7e1 100%);
+  }
+  .dashboard.is-visible{display:block}
+  .dash-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+  .dash-title{font-family:"Bricolage Grotesque",Inter,sans-serif;font-weight:800;font-size:clamp(1.7rem,7vw,2.3rem);line-height:1.02;letter-spacing:-.03em}
+  .dash-sub{margin-top:6px;color:var(--muted);font-size:.92rem;max-width:48ch;line-height:1.45}
+  .dash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+  .stat{padding:14px;border:1px solid rgba(177,44,44,.1);background:rgba(255,255,255,.6);border-radius:18px}
+  .stat .k{font-size:.77rem;color:rgba(17,17,17,.58);text-transform:uppercase;letter-spacing:.12em}
+  .stat .v{margin-top:8px;font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-.03em}
+  .dash-section{margin-top:18px;padding-top:18px;border-top:1px solid rgba(17,17,17,.08)}
+  .bars{display:grid;gap:12px;margin-top:14px}
+  .bar-row{display:grid;grid-template-columns:112px 1fr 42px;gap:10px;align-items:center}
+  .bar-label{font-size:.88rem;color:rgba(17,17,17,.86);line-height:1.2}
+  .bar-track{height:12px;background:rgba(177,44,44,.08);border-radius:999px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg, #5f3bff, #8d7dff)}
+  .bar-fill{background:linear-gradient(90deg, #b12c2c, #ec6a6a)}
+  .bar-count{font-size:.9rem;color:rgba(17,17,17,.72);text-align:right}
+  .suggestions{display:grid;gap:10px;margin-top:14px}
+  .suggestion{padding:12px 13px;border:1px solid rgba(177,44,44,.08);border-radius:16px;background:rgba(255,255,255,.55);color:rgba(17,17,17,.88);font-size:.92rem;line-height:1.45}
+  .campaign-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .mini-tag{padding:.5rem .72rem;border-radius:999px;border:1px solid rgba(177,44,44,.1);background:rgba(255,255,255,.55);font-size:.82rem;color:rgba(17,17,17,.82)}
+
+  .footer-note{margin-top:16px;text-align:center;color:rgba(17,17,17,.46);font-size:.8rem}
+
+  .reveal{opacity:0;transform:translateY(10px);transition:opacity .34s ease, transform .34s ease}
+  .reveal.is-visible{opacity:1;transform:translateY(0)}
+
+  .topnav.reveal{opacity:0;transform:translateY(-6px);transition:opacity .22s ease, transform .22s ease}
+  .topnav.reveal.is-visible{opacity:1;transform:translateY(0)}
+
+  @media (min-width:760px){
+    .app{max-width:720px;margin:0 auto}
+    .hero,.campaign,.feedback,.dashboard{border-left:1px solid rgba(17,17,17,.04);border-right:1px solid rgba(17,17,17,.04)}
+    .poster-frame{max-width:450px}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<main class="app" id="app">
+  <section class="hero" id="hero">
+    <div class="topnav reveal" id="heroTopbar">
+      <img class="topnav-logo" src="szabist%20logo%20svg.svg" alt="SZABIST Hyderabad logo">
+      <img class="topnav-logo" src="ssc%20logo%20svg.svg" alt="SSC logo">
+    </div>
+
+    <div class="hook-panel" aria-live="polite">
+      <div id="hookLine" class="hook-line"></div>
+      <div id="hearLine" class="hear-line">WE HEAR YOU.</div>
+    </div>
+
+    <div class="poster-frame reveal" id="posterFrame" aria-label="SOHA campaign poster">
+      <img class="poster-image" id="posterImage" src="SOHA%20for%20President%20%E2%80%94%20Poster%203.png" alt="SOHA campaign poster" onerror="this.style.display='none'; document.getElementById('posterFallback').style.display='block';">
+      <div class="poster-fallback" id="posterFallback">
+        <div class="f-soha">SO<br>HA</div>
+        <div class="f-sub">FOR PRESIDENT • SSC 2026–2027</div>
+        <div class="f-copy">Upload the exact poster image as SOHA for President — Poster 3.png</div>
+      </div>
+    </div>
+
+    <div class="hero-copy reveal" id="heroCopy">
+      <div class="slogan">YOUR VOICE. YOUR CAMPUS.</div>
+      <p class="supporting">The things that shape your campus experience deserve to be heard.</p>
+      <div class="vote-line">VOTE SOHA</div>
+    </div>
+  </section>
+
+  <section class="feedback reveal" id="feedback">
+    <div class="section-kicker">WHAT WOULD YOU LIKE TO SEE CHANGE?</div>
+    <p class="section-copy">Tell Soha what would make campus better for you.</p>
+
+    <div class="chip-grid" id="topOptions">
+      <button class="chip" data-value="Food & Cafeteria"><span class="emoji">🍔</span><span>Food &amp; Cafeteria</span></button>
+      <button class="chip" data-value="Trips & Tours"><span class="emoji">🚌</span><span>Trips &amp; Tours</span></button>
+      <button class="chip" data-value="Events"><span class="emoji">🎉</span><span>Events</span></button>
+      <button class="chip" data-value="Student Activities"><span class="emoji">🎮</span><span>Student Activities</span></button>
+      <button class="chip" data-value="Sports"><span class="emoji">🏆</span><span>Sports</span></button>
+      <button class="chip" data-value="Clubs & Societies"><span class="emoji">🎭</span><span>Clubs &amp; Societies</span></button>
+      <button class="chip" data-value="Academic Concerns"><span class="emoji">📚</span><span>Academic Concerns</span></button>
+      <button class="chip" data-value="Campus Facilities"><span class="emoji">🏫</span><span>Campus Facilities</span></button>
+    </div>
+
+    <button class="more-toggle" id="moreToggle" type="button" aria-expanded="false">
+      <span id="moreLabel">More options ↓</span>
+    </button>
+
+    <div class="more-panel" id="morePanel">
+      <div class="chip-grid">
+        <button class="chip" data-value="Student Support"><span class="emoji">🤝</span><span>Student Support</span></button>
+        <button class="chip" data-value="Student Representation"><span class="emoji">🗣️</span><span>Student Representation</span></button>
+        <button class="chip" data-value="Workshops & Opportunities"><span class="emoji">💡</span><span>Workshops &amp; Opportunities</span></button>
+        <button class="chip" data-value="Communication & Updates"><span class="emoji">📢</span><span>Communication &amp; Updates</span></button>
+        <button class="chip" data-value="Other"><span class="emoji">✨</span><span>Other</span></button>
+      </div>
+
+      <div class="form-group" id="otherGroup" hidden>
+        <label class="label" for="otherInput">What would you like changed?</label>
+        <input class="input" id="otherInput" type="text" maxlength="160" placeholder="What would you like changed?">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="label" for="extraInput">Anything else you'd like Soha to know?</label>
+      <textarea class="textarea" id="extraInput" maxlength="500" placeholder="Short, honest, anonymous."></textarea>
+    </div>
+
+    <div class="meta-line">No name, email, phone, or student ID required. Feedback stays anonymous unless changed later.</div>
+
+    <button class="submit" id="submitBtn" type="button">SEND TO SOHA →</button>
+  </section>
+
+  <section class="confirm" id="confirm">
+    <div class="confirm-card">
+      <div class="confirm-title">HEARD. ✓</div>
+      <div class="confirm-copy">Thank you for sharing your voice.</div>
+      <div class="confirm-copy">Let's make campus better together.</div>
+      <div class="confirm-end">VOTE SOHA<br>FOR PRESIDENT<br>SSC 2026–2027</div>
+    </div>
+  </section>
+
+  <section class="dashboard" id="dashboard">
+    <div class="dash-top">
+      <div>
+        <div class="dash-title">Campaign Dashboard</div>
+        <div class="dash-sub">Live response overview. If a backend endpoint is configured, submissions are saved there first; otherwise they are stored locally for testing.</div>
+      </div>
+      <div class="campaign-tabs" id="campaignTabs"></div>
+    </div>
+
+    <div class="dash-grid" id="statsGrid"></div>
+
+    <div class="dash-section">
+      <div class="section-kicker">Most requested priorities</div>
+      <div class="bars" id="bars"></div>
+    </div>
+
+    <div class="dash-section">
+      <div class="section-kicker">Other written suggestions</div>
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <div class="footer-note">Open this page with ?admin=1 to view the dashboard.</div>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script>
+(() => {
+  const GOOGLE_SHEETS_WEB_APP_URL = window.CAMPAIGN_CONFIG?.GOOGLE_SHEETS_WEB_APP_URL || '';
+  const GOOGLE_SHEETS_API = GOOGLE_SHEETS_WEB_APP_URL || '';
+  const DEFAULT_API = GOOGLE_SHEETS_API || window.CAMPAIGN_API_URL || '';
+  const STORAGE_KEY = 'soha_campaign_feedback_v1';
+  const SESSION_KEY = 'soha_campaign_session_id';
+
+  const campaigns = {
+    stairs: { hook: 'TIRED OF TAKING THE STAIRS?', hear: 'WE HEAR YOU.' },
+    food: { hook: 'CAMPUS FOOD COULD BE BETTER?', hear: 'WE HEAR YOU.' },
+    events: { hook: 'WANT BETTER CAMPUS EVENTS?', hear: 'WE HEAR YOU.' },
+    trips: { hook: 'MORE TRIPS? 👀', hear: 'WE HEAR YOU.' },
+    activities: { hook: 'CAMPUS NEEDS MORE TO DO?', hear: 'WE HEAR YOU.' },
+    facilities: { hook: 'SOMETHING ON CAMPUS NEEDS FIXING?', hear: 'WE HEAR YOU.' },
+    academics: { hook: 'GOT AN ACADEMIC CONCERN?', hear: 'YOUR VOICE SHOULD BE HEARD.' },
+    attendance: {
+      hook: 'ATTENDANCE GOT YOU STRESSED? 👀',
+      hear: 'WE HEAR YOU.'
+    },
+    default: { hook: 'WHAT WOULD YOU CHANGE ABOUT CAMPUS?', hear: 'YOUR VOICE MATTERS.' }
+  };
+
+  const categoryMap = {
+    'Food & Cafeteria': 'Food',
+    'Trips & Tours': 'Trips',
+    'Events': 'Events',
+    'Student Activities': 'Activities',
+    'Sports': 'Sports',
+    'Clubs & Societies': 'Clubs & Societies',
+    'Academic Concerns': 'Academic Concerns',
+    'Campus Facilities': 'Facilities',
+    'Student Support': 'Student Support',
+    'Student Representation': 'Student Representation',
+    'Workshops & Opportunities': 'Workshops & Opportunities',
+    'Communication & Updates': 'Communication & Updates',
+    'Other': 'Other'
+  };
+
+  const adminMode = new URLSearchParams(location.search).get('admin') === '1';
+  const campaignKey = new URLSearchParams(location.search).get('campaign') || 'default';
+  const campaign = campaigns[campaignKey] || campaigns.default;
+
+  const el = {
+    hookLine: document.getElementById('hookLine'),
+    hearLine: document.getElementById('hearLine'),
+    heroTopbar: document.getElementById('heroTopbar'),
+    posterFrame: document.getElementById('posterFrame'),
+    heroCopy: document.getElementById('heroCopy'),
+    feedback: document.getElementById('feedback'),
+    confirm: document.getElementById('confirm'),
+    dashboard: document.getElementById('dashboard'),
+    moreToggle: document.getElementById('moreToggle'),
+    morePanel: document.getElementById('morePanel'),
+    moreLabel: document.getElementById('moreLabel'),
+    otherGroup: document.getElementById('otherGroup'),
+    otherInput: document.getElementById('otherInput'),
+    extraInput: document.getElementById('extraInput'),
+    submitBtn: document.getElementById('submitBtn'),
+    statsGrid: document.getElementById('statsGrid'),
+    bars: document.getElementById('bars'),
+    suggestions: document.getElementById('suggestions'),
+    campaignTabs: document.getElementById('campaignTabs')
+  };
+
+  const sessionId = getSessionId();
+  const selected = new Set();
+
+  function getSessionId(){
+    let id = localStorage.getItem(SESSION_KEY);
+    if (!id) {
+      id = 'sess_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+      localStorage.setItem(SESSION_KEY, id);
+    }
+    return id;
+  }
+
+  function getStore(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch { return []; }
+  }
+
+  function setStore(items){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }
+
+  async function saveSubmission(payload){
+    if (DEFAULT_API) {
+      try {
+        const isGoogleEndpoint = /google\.com\/macros\/s\//i.test(DEFAULT_API) || /script\.google\.com/i.test(DEFAULT_API);
+
+        if (isGoogleEndpoint) {
+          const formData = new URLSearchParams();
+          Object.entries(payload).forEach(([key, value]) => {
+            formData.append(key, typeof value === 'string' ? value : JSON.stringify(value));
+          });
+
+          await fetch(DEFAULT_API, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+            body: formData.toString()
+          });
+          return { ok: true, stored: 'google' };
+        }
+
+        const res = await fetch(DEFAULT_API, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error('Backend returned ' + res.status);
+        return { ok: true, stored: 'backend' };
+      } catch (error) {
+        console.warn('Backend save failed; using local storage fallback.', error);
+      }
+    }
+
+    const items = getStore();
+    items.unshift(payload);
+    setStore(items.slice(0, 1000));
+    return { ok: true, stored: 'local' };
+  }
+
+  function readData(){
+    return getStore();
+  }
+
+  function normalizeCategory(category){
+    return categoryMap[category] || category;
+  }
+
+  function countBy(arr, keyFn){
+    return arr.reduce((acc, item) => {
+      const key = keyFn(item);
+      if (!key) return acc;
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+  }
+
+  function setRevealTimers(){
+    requestAnimationFrame(() => {
+      el.hookLine.textContent = campaign.hook;
+      el.hookLine.classList.add('is-visible');
+
+      setTimeout(() => {
+        el.hookLine.classList.add('is-hidden');
+        el.hearLine.textContent = campaign.hear;
+        el.hearLine.classList.add('is-visible');
+      }, 900);
+
+      setTimeout(() => {
+        el.heroTopbar.classList.add('is-visible');
+        el.posterFrame.classList.add('is-visible');
+      }, 1550);
+
+      setTimeout(() => {
+        el.heroCopy.classList.add('is-visible');
+        el.feedback.classList.add('is-visible');
+      }, 2100);
+    });
+  }
+
+  function buildCampaignTabs(){
+    const keys = ['stairs','food','events','trips','activities','facilities','academics','attendance','default'];
+    el.campaignTabs.innerHTML = keys.map(key => {
+      const label = key === 'default' ? 'general' : key;
+      const href = `?campaign=${key}`;
+      return `<a class="mini-tag" href="${href}">${label}</a>`;
+    }).join('');
+  }
+
+  function renderDashboard(){
+    const data = readData();
+    const total = data.length;
+    const categories = countBy(data.flatMap(item => (item.selectedCategories || []).map(normalizeCategory)), x => x);
+    const campaignCounts = countBy(data, item => item.campaign || 'general');
+    const suggestions = data.filter(item => item.customSuggestion || item.extraNote).slice(0, 8);
+
+    const statCards = [
+      ['Total responses', total],
+      ['Most requested', topKey(categories) || '—'],
+      ['Top QR', topKey(campaignCounts) || '—'],
+      ['Anonymous sessions', new Set(data.map(item => item.sessionId).filter(Boolean)).size]
+    ];
+    el.statsGrid.innerHTML = statCards.map(([k, v]) => `
+      <div class="stat">
+        <div class="k">${escapeHtml(String(k))}</div>
+        <div class="v">${escapeHtml(String(v))}</div>
+      </div>
+    `).join('');
+
+    const priorities = [
+      'Food', 'Trips', 'Events', 'Activities', 'Facilities', 'Clubs & Societies', 'Academic Concerns', 'Student Support', 'Student Representation', 'Workshops & Opportunities', 'Communication & Updates', 'Other'
+    ];
+    const max = Math.max(1, ...Object.values(categories));
+    el.bars.innerHTML = priorities.map(name => {
+      const count = categories[name] || 0;
+      const width = Math.max(4, Math.round((count / max) * 100));
+      return `
+        <div class="bar-row">
+          <div class="bar-label">${escapeHtml(name)}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${width}%"></div></div>
+          <div class="bar-count">${count}</div>
+        </div>
+      `;
+    }).join('');
+
+    el.suggestions.innerHTML = suggestions.length
+      ? suggestions.map(item => `
+          <div class="suggestion">
+            ${escapeHtml(item.customSuggestion || item.extraNote || '—')}
+            <div class="footer-note">${escapeHtml(item.campaign || 'general')} · ${new Date(item.submittedAt).toLocaleString()}</div>
+          </div>
+        `).join('')
+      : '<div class="suggestion">No written suggestions yet.</div>';
+  }
+
+  function topKey(obj){
+    return Object.entries(obj).sort((a,b) => b[1] - a[1])[0]?.[0];
+  }
+
+  function escapeHtml(value){
+    return value
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
+
+  function setChipState(button){
+    const value = button.dataset.value;
+    if (selected.has(value)) selected.delete(value); else selected.add(value);
+    button.classList.toggle('is-active', selected.has(value));
+
+    if (value === 'Other') {
+      el.otherGroup.hidden = !selected.has(value);
+      if (selected.has(value)) el.otherInput.focus();
+    }
+  }
+
+  document.querySelectorAll('.chip').forEach(button => {
+    button.addEventListener('click', () => setChipState(button));
+  });
+
+  el.moreToggle.addEventListener('click', () => {
+    const open = el.morePanel.classList.toggle('is-open');
+    el.moreToggle.setAttribute('aria-expanded', String(open));
+    el.moreLabel.textContent = open ? 'Less options ↑' : 'More options ↓';
+  });
+
+  el.submitBtn.addEventListener('click', async () => {
+    const selectedCategories = Array.from(selected)
+      .filter(Boolean)
+      .map(normalizeCategory);
+    const customSuggestion = el.otherGroup.hidden ? '' : el.otherInput.value.trim();
+    const extraNote = el.extraInput.value.trim();
+
+    if (!selectedCategories.length && !customSuggestion && !extraNote) {
+      el.submitBtn.textContent = 'SELECT SOMETHING FIRST';
+      setTimeout(() => el.submitBtn.textContent = 'SEND TO SOHA →', 1200);
+      return;
+    }
+
+    const payload = {
+      id: cryptoId(),
+      sessionId,
+      campaign: campaignKey,
+      selectedCategories,
+      customSuggestion,
+      extraNote,
+      submittedAt: new Date().toISOString(),
+      userAgent: navigator.userAgent
+    };
+
+    el.submitBtn.disabled = true;
+    el.submitBtn.textContent = 'SENDING…';
+    const result = await saveSubmission(payload);
+    if (result.ok) {
+      el.confirm.classList.add('is-visible');
+      el.heroCopy.style.display = 'none';
+      el.feedback.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (adminMode) renderDashboard();
+    } else {
+      el.submitBtn.disabled = false;
+      el.submitBtn.textContent = 'SEND TO SOHA →';
+    }
+  });
+
+  function cryptoId(){
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'fb_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+  }
+
+  function init(){
+    document.title = 'SOHA — Candidate for President';
+    el.posterFrame.classList.remove('is-visible');
+    setRevealTimers();
+    buildCampaignTabs();
+    if (adminMode) {
+      el.dashboard.classList.add('is-visible');
+      renderDashboard();
+      el.submitBtn.disabled = true;
+      el.submitBtn.textContent = 'STUDENT VIEW ONLY';
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
